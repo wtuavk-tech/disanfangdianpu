@@ -14,22 +14,23 @@ import {
   RefreshCw, 
   UserPlus, 
   ChevronDown, 
-  ChevronUp 
+  ChevronUp,
+  Megaphone // 新增图标
 } from 'lucide-react';
 
 // --- 类型定义 ---
 
 type TabType = '第三方店铺管理' | '评论管理' | '评价统计' | '商品管理' | '客服管理' | '京东订单' | '第三方订单同步管理';
 
-// 样式配置：参考图中色彩体系 (Ant Design Palette)
+// 样式配置：参考图中色彩体系 (糖果色系：浅底+深边+深字)
 const TAB_THEMES: Record<TabType, { base: string, light: string, border: string, text: string }> = {
-  '第三方店铺管理': { base: '#ff4d4f', light: '#fff1f0', border: '#ffa39e', text: '#cf1322' }, // 红
-  '评论管理': { base: '#faad14', light: '#fffbe6', border: '#ffe58f', text: '#d46b08' },      // 黄
-  '评价统计': { base: '#1890ff', light: '#e6f7ff', border: '#91d5ff', text: '#096dd9' },      // 蓝
-  '商品管理': { base: '#52c41a', light: '#f6ffed', border: '#b7eb8f', text: '#389e0d' },      // 绿
-  '客服管理': { base: '#13c2c2', light: '#e6fffb', border: '#87e8de', text: '#08979c' },      // 青
-  '京东订单': { base: '#722ed1', light: '#f9f0ff', border: '#d3adf7', text: '#531dab' },      // 紫
-  '第三方订单同步管理': { base: '#eb2f96', light: '#fff0f6', border: '#ffadd2', text: '#c41d7f' } // 粉
+  '第三方店铺管理': { base: '#ff5252', light: '#fff1f0', border: '#ffccc7', text: '#f5222d' }, // 红
+  '评论管理': { base: '#fadb14', light: '#fffbe6', border: '#ffe58f', text: '#d48806' },      // 黄
+  '评价统计': { base: '#4096ff', light: '#e6f7ff', border: '#91d5ff', text: '#1677ff' },      // 蓝
+  '商品管理': { base: '#95de64', light: '#f6ffed', border: '#b7eb8f', text: '#52c41a' },      // 绿
+  '客服管理': { base: '#5cdbd3', light: '#e6fffb', border: '#87e8de', text: '#13c2c2' },      // 青
+  '京东订单': { base: '#b37feb', light: '#f9f0ff', border: '#d3adf7', text: '#722ed1' },      // 紫
+  '第三方订单同步管理': { base: '#ff85c0', light: '#fff0f6', border: '#ffadd2', text: '#eb2f96' } // 粉
 };
 
 // --- 配置项 (严格对照 1-7 图还原) ---
@@ -112,18 +113,28 @@ const generateRows = (tab: TabType): any[] => {
 // --- 子组件 ---
 
 const NotificationBar = () => (
-  <div className="flex items-center gap-4 mb-3 px-6 py-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700 rounded-xl shadow-lg overflow-hidden shrink-0">
-    <div className="flex items-center gap-3 shrink-0">
-      <div className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-        <Bell size={10} /> 重要公告
-      </div>
-      <span className="text-slate-400 text-xs">2025-11-19</span>
+  <div className="flex items-center gap-4 mb-4 px-3 py-2 bg-[#111827] rounded-lg shadow-md overflow-hidden shrink-0 h-12">
+    {/* 左侧标签 */}
+    <div className="bg-[#ff4d4f] text-white text-[11px] font-bold px-3 py-1.5 rounded flex items-center gap-1.5 shadow-sm shrink-0">
+      <span>重要公告</span>
+      <Bell size={12} fill="currentColor" />
     </div>
-    <div className="flex-1 overflow-hidden relative h-6 flex items-center">
-      <div className="whitespace-nowrap animate-[marquee_40s_linear_infinite] flex items-center gap-8 text-[13px] text-white font-medium">
-        <span>📢 关于 2025 年度秋季职级晋升评审的通知：请相关人员务必在截止日期前完成确认，相关政策调整将于下月正式生效。</span>
+
+    {/* 中间滚动内容 */}
+    <div className="flex-1 overflow-hidden relative h-full flex items-center text-white">
+      <div className="flex items-center gap-3 shrink-0 mr-2">
+        <Megaphone size={16} className="text-[#ff4d4f]" />
+      </div>
+      <div className="whitespace-nowrap animate-[marquee_40s_linear_infinite] flex items-center text-[12px] font-medium tracking-wide">
+        <span>关于 2025 年度秋季职级晋升评审的通知：点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认，相关政策调整将于下月正式生效...</span>
       </div>
     </div>
+
+    {/* 右侧日期 */}
+    <div className="bg-[#1f2937] text-slate-400 text-[10px] font-mono px-2 py-1 rounded border border-[#374151] shrink-0">
+      2025-11-19
+    </div>
+    
     <style>{`@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`}</style>
   </div>
 );
@@ -144,7 +155,7 @@ const TabSelector = ({ activeTab, onSelect }: { activeTab: TabType, onSelect: (t
               borderColor: isActive ? 'transparent' : theme.border,
               color: isActive ? '#fff' : theme.text
             }}
-            className={`h-11 rounded-xl text-[12px] font-bold transition-all duration-200 flex items-center justify-center px-2 text-center leading-tight border shadow-sm hover:opacity-90 active:scale-95 ${
+            className={`h-11 rounded-lg text-[13px] font-bold transition-all duration-200 flex items-center justify-center px-2 text-center leading-tight border shadow-sm hover:opacity-90 active:scale-95 ${
               isActive ? 'shadow-md scale-[1.02]' : ''
             }`}
           >
@@ -314,10 +325,7 @@ const App = () => {
         </div>
 
         {/* 分页组件 */}
-        <div className="px-6 py-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/50">
-          <div className="text-[11px] text-slate-400 font-bold">
-            Total Records: <span className="text-slate-600">623</span>
-          </div>
+        <div className="px-6 py-3 border-t border-slate-100 flex items-center justify-center bg-slate-50/50 h-14">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-1.5">
               <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center bg-white hover:bg-slate-50 transition-all active:scale-90 text-slate-400"><ChevronLeft size={16}/></button>
@@ -329,9 +337,9 @@ const App = () => {
               <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center bg-white hover:bg-slate-50 transition-all active:scale-90 text-slate-400"><ChevronRight size={16}/></button>
             </div>
             <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400">
-              <span>Go to</span>
+              <span>前往</span>
               <input type="number" defaultValue={1} className="w-10 h-8 border border-slate-200 rounded-lg text-center outline-none bg-white text-slate-600 focus:border-indigo-400" />
-              <span>Page</span>
+              <span>页</span>
             </div>
           </div>
         </div>
