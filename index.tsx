@@ -22,15 +22,16 @@ import {
 
 type TabType = '第三方店铺管理' | '评论管理' | '评价统计' | '商品管理' | '客服管理' | '京东订单' | '第三方订单同步管理';
 
-// 样式配置：参考图中色彩体系 (糖果色系：浅底+深边+深字)
+// 样式配置：参考图中色彩体系 (统一为图片所示的蓝白色系)
 const TAB_THEMES: Record<TabType, { base: string, light: string, border: string, text: string }> = {
-  '第三方店铺管理': { base: '#ff5252', light: '#fff1f0', border: '#ffccc7', text: '#f5222d' }, // 红
-  '评论管理': { base: '#fadb14', light: '#fffbe6', border: '#ffe58f', text: '#d48806' },      // 黄
-  '评价统计': { base: '#4096ff', light: '#e6f7ff', border: '#91d5ff', text: '#1677ff' },      // 蓝
-  '商品管理': { base: '#95de64', light: '#f6ffed', border: '#b7eb8f', text: '#52c41a' },      // 绿
-  '客服管理': { base: '#5cdbd3', light: '#e6fffb', border: '#87e8de', text: '#13c2c2' },      // 青
-  '京东订单': { base: '#b37feb', light: '#f9f0ff', border: '#d3adf7', text: '#722ed1' },      // 紫
-  '第三方订单同步管理': { base: '#ff85c0', light: '#fff0f6', border: '#ffadd2', text: '#eb2f96' } // 粉
+  // 统一使用：选中底色(base)为蓝色，未选中底色(light)为 #F0F9FE，边框(border)为浅蓝，文字(text)为蓝色
+  '第三方店铺管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '评论管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '评价统计': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '商品管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '客服管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '京东订单': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
+  '第三方订单同步管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' }
 };
 
 // --- 配置项 (严格对照 1-7 图还原) ---
@@ -288,11 +289,14 @@ const App = () => {
                 <th className="px-5 py-4 w-36 text-center sticky right-0 bg-slate-50 shadow-[-8px_0_15px_-5px_rgba(0,0,0,0.05)]">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            {/* 移除 divide-y，改为 tr border-b 控制 */}
+            <tbody>
               {data.map((row, idx) => (
                 <tr 
                   key={idx} 
-                  className={`group transition-colors text-[12px] h-12 ${idx % 2 === 1 ? 'bg-slate-50/50' : 'bg-white'} hover:bg-indigo-50/30`}
+                  // 1. 每行都有底部边框 border-b border-[#cbd5e1]
+                  // 2. 隔行使用浅蓝底色 bg-[#F0F9FE]
+                  className={`group transition-colors text-[12px] h-12 border-b border-[#cbd5e1] ${idx % 2 === 1 ? 'bg-[#F0F9FE]' : 'bg-white'} hover:bg-indigo-50/30`}
                 >
                   <td className="px-5 py-2 text-center border-r border-slate-100 text-slate-400 font-mono">
                     {String((currentPage - 1) * pageSize + idx + 1).padStart(2, '0')}
@@ -306,7 +310,7 @@ const App = () => {
                       )}
                     </td>
                   ))}
-                  <td className={`px-5 py-2 text-center sticky right-0 shadow-[-8px_0_15px_-5px_rgba(0,0,0,0.05)] ${idx % 2 === 1 ? 'bg-slate-50' : 'bg-white'} group-hover:bg-indigo-50/30 transition-colors`}>
+                  <td className={`px-5 py-2 text-center sticky right-0 shadow-[-8px_0_15px_-5px_rgba(0,0,0,0.05)] ${idx % 2 === 1 ? 'bg-[#F0F9FE]' : 'bg-white'} group-hover:bg-indigo-50/30 transition-colors`}>
                     <div className="flex justify-center gap-4">
                       <button className="text-indigo-600 hover:text-indigo-800 font-bold transition-all hover:underline decoration-2 underline-offset-4">
                         {activeTab === '客服管理' ? '绑定系统' : (activeTab.includes('管理') ? '修改' : '详情')}
