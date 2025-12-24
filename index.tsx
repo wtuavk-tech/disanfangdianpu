@@ -172,11 +172,11 @@ const DataOverview = ({ toggleFilters, showFilters }: { toggleFilters: () => voi
     <div className="flex items-center gap-4 px-6 flex-1">
       <div className="flex items-center gap-2 mr-10 shrink-0">
         <Activity size={20} className="text-indigo-500" />
-        <span className="text-sm font-bold text-slate-800 uppercase tracking-tight font-sans">核心数据面板</span>
+        <span className="text-sm font-bold text-slate-800 uppercase tracking-tight font-sans">数据概览</span>
       </div>
       <div className="flex gap-16">
         {[['待处理评论', '310', '#ef4444'], ['今日同步', '1560', '#334155'], ['平均好评', '98.5%', '#22c55e'], ['同步状态', '正常', '#334155']].map(([label, val, color]) => (
-          <div key={label} className="flex flex-col">
+          <div key={label} className="flex items-center gap-2">
             <span className="text-[10px] text-slate-400 font-bold uppercase font-sans">{label}</span>
             <span className="text-sm font-bold font-mono" style={{ color }}>{val}</span>
           </div>
