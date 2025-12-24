@@ -15,7 +15,7 @@ import {
   UserPlus, 
   ChevronDown, 
   ChevronUp,
-  Megaphone // 新增图标
+  Megaphone
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -24,7 +24,6 @@ type TabType = '第三方店铺管理' | '评论管理' | '评价统计' | '商�
 
 // 样式配置：参考图中色彩体系 (统一为图片所示的蓝白色系)
 const TAB_THEMES: Record<TabType, { base: string, light: string, border: string, text: string }> = {
-  // 统一使用：选中底色(base)为蓝色，未选中底色(light)为 #F0F9FE，边框(border)为浅蓝，文字(text)为蓝色
   '第三方店铺管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
   '评论管理': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
   '评价统计': { base: '#3b82f6', light: '#F0F9FE', border: '#93c5fd', text: '#2563eb' },
@@ -116,7 +115,7 @@ const generateRows = (tab: TabType): any[] => {
 const NotificationBar = () => (
   <div className="flex items-center gap-4 mb-4 px-3 py-2 bg-[#111827] rounded-lg shadow-md overflow-hidden shrink-0 h-12">
     {/* 左侧标签 */}
-    <div className="bg-[#ff4d4f] text-white text-[11px] font-bold px-3 py-1.5 rounded flex items-center gap-1.5 shadow-sm shrink-0">
+    <div className="bg-[#ff4d4f] text-white text-[11px] font-bold px-3 py-1.5 rounded flex items-center gap-1.5 shadow-sm shrink-0 font-sans">
       <span>重要公告</span>
       <Bell size={12} fill="currentColor" />
     </div>
@@ -126,7 +125,7 @@ const NotificationBar = () => (
       <div className="flex items-center gap-3 shrink-0 mr-2">
         <Megaphone size={16} className="text-[#ff4d4f]" />
       </div>
-      <div className="whitespace-nowrap animate-[marquee_40s_linear_infinite] flex items-center text-[12px] font-medium tracking-wide">
+      <div className="whitespace-nowrap animate-[marquee_40s_linear_infinite] flex items-center text-[12px] font-medium tracking-wide font-sans">
         <span>关于 2025 年度秋季职级晋升评审的通知：点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认，相关政策调整将于下月正式生效...</span>
       </div>
     </div>
@@ -156,7 +155,7 @@ const TabSelector = ({ activeTab, onSelect }: { activeTab: TabType, onSelect: (t
               borderColor: isActive ? 'transparent' : theme.border,
               color: isActive ? '#fff' : theme.text
             }}
-            className={`h-11 rounded-lg text-[13px] font-bold transition-all duration-200 flex items-center justify-center px-2 text-center leading-tight border shadow-sm hover:opacity-90 active:scale-95 ${
+            className={`h-11 rounded-lg text-[13px] font-bold font-sans transition-all duration-200 flex items-center justify-center px-2 text-center leading-tight border shadow-sm hover:opacity-90 active:scale-95 ${
               isActive ? 'shadow-md scale-[1.02]' : ''
             }`}
           >
@@ -173,12 +172,12 @@ const DataOverview = ({ toggleFilters, showFilters }: { toggleFilters: () => voi
     <div className="flex items-center gap-4 px-6 flex-1">
       <div className="flex items-center gap-2 mr-10 shrink-0">
         <Activity size={20} className="text-indigo-500" />
-        <span className="text-sm font-bold text-slate-800 uppercase tracking-tight">核心数据面板</span>
+        <span className="text-sm font-bold text-slate-800 uppercase tracking-tight font-sans">核心数据面板</span>
       </div>
       <div className="flex gap-16">
         {[['待处理评论', '310', '#ef4444'], ['今日同步', '1560', '#334155'], ['平均好评', '98.5%', '#22c55e'], ['同步状态', '正常', '#334155']].map(([label, val, color]) => (
           <div key={label} className="flex flex-col">
-            <span className="text-[10px] text-slate-400 font-bold uppercase">{label}</span>
+            <span className="text-[10px] text-slate-400 font-bold uppercase font-sans">{label}</span>
             <span className="text-sm font-bold font-mono" style={{ color }}>{val}</span>
           </div>
         ))}
@@ -186,7 +185,7 @@ const DataOverview = ({ toggleFilters, showFilters }: { toggleFilters: () => voi
     </div>
     <div 
       onClick={toggleFilters}
-      className="h-full px-6 bg-indigo-50 border-l border-slate-200 flex items-center gap-2 text-indigo-600 font-bold text-xs cursor-pointer hover:bg-indigo-100 transition-all select-none"
+      className="h-full px-6 bg-indigo-50 border-l border-slate-200 flex items-center gap-2 text-indigo-600 font-bold text-xs cursor-pointer hover:bg-indigo-100 transition-all select-none font-sans"
     >
       <Search size={14} />
       <span>点这高级筛选</span>
@@ -202,19 +201,19 @@ const SearchPanel = ({ tab, isVisible }: { tab: TabType, isVisible: boolean }) =
 
   const renderField = (field: string) => (
     <div key={field} className="flex flex-col gap-1 min-w-[200px]">
-      <span className="text-[10px] text-slate-400 font-bold uppercase shrink-0 whitespace-nowrap">{field}</span>
+      <span className="text-[10px] text-slate-400 font-bold uppercase shrink-0 whitespace-nowrap font-sans">{field}</span>
       {field.includes('时间') || field.includes('日期') ? (
         <div className="flex items-center gap-1 flex-1">
-          <input type="date" className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none focus:border-indigo-400 bg-slate-50" />
-          <span className="text-slate-300">至</span>
-          <input type="date" className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none focus:border-indigo-400 bg-slate-50" />
+          <input type="date" className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none focus:border-indigo-400 bg-slate-50 font-mono text-slate-600" />
+          <span className="text-slate-300 font-sans">至</span>
+          <input type="date" className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none focus:border-indigo-400 bg-slate-50 font-mono text-slate-600" />
         </div>
       ) : field.includes('状态') || field.includes('来源') || field.includes('平台') || field.includes('是否') || field === '评论等级' ? (
-        <select className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none bg-slate-50 text-slate-600 cursor-pointer">
+        <select className="flex-1 border border-slate-200 rounded-lg h-8 px-2 text-[11px] outline-none bg-slate-50 text-slate-600 cursor-pointer font-sans">
           <option>请选择{field}</option>
         </select>
       ) : (
-        <input type="text" placeholder={`输入${field}`} className="flex-1 border border-slate-200 rounded-lg h-8 px-3 text-[11px] outline-none focus:border-indigo-400 bg-slate-50" />
+        <input type="text" placeholder={`输入${field}`} className="flex-1 border border-slate-200 rounded-lg h-8 px-3 text-[11px] outline-none focus:border-indigo-400 bg-slate-50 font-sans" />
       )}
     </div>
   );
@@ -229,8 +228,8 @@ const SearchPanel = ({ tab, isVisible }: { tab: TabType, isVisible: boolean }) =
         
         {/* 搜索和重置按钮 */}
         <div className="flex gap-2 shrink-0 border-l border-slate-100 pl-8">
-          <button className="h-8 px-5 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-700 shadow-sm transition-all active:scale-95">搜索</button>
-          <button className="h-8 px-5 bg-white border border-slate-200 text-slate-500 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all">重置</button>
+          <button className="h-8 px-5 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-700 shadow-sm transition-all active:scale-95 font-sans">搜索</button>
+          <button className="h-8 px-5 bg-white border border-slate-200 text-slate-500 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all font-sans">重置</button>
         </div>
 
         {/* 功能操作按钮 */}
@@ -238,7 +237,7 @@ const SearchPanel = ({ tab, isVisible }: { tab: TabType, isVisible: boolean }) =
           {config.buttons.map(btn => (
             <button 
               key={btn} 
-              className={`h-8 px-4 rounded-lg text-xs font-bold flex items-center gap-2 transition-all shadow-sm text-white active:scale-95 ${
+              className={`h-8 px-4 rounded-lg text-xs font-bold flex items-center gap-2 transition-all shadow-sm text-white active:scale-95 font-sans ${
                 btn === '新增' || btn === '同步' || btn === '自动匹配项目' || btn === '补录' ? 'bg-indigo-600 hover:bg-indigo-700' : 
                 btn === '更新负责人' || btn === '同步店铺SKU' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-slate-800 hover:bg-slate-900'
               }`}
@@ -250,9 +249,9 @@ const SearchPanel = ({ tab, isVisible }: { tab: TabType, isVisible: boolean }) =
             </button>
           ))}
           {tab === '京东订单' && (
-            <div className="relative flex items-center bg-red-600 text-white h-8 px-4 rounded-lg text-xs font-bold cursor-pointer hover:bg-red-700 shadow-sm transition-all active:scale-95">
+            <div className="relative flex items-center bg-red-600 text-white h-8 px-4 rounded-lg text-xs font-bold cursor-pointer hover:bg-red-700 shadow-sm transition-all active:scale-95 font-sans">
                待出库订单
-               <span className="absolute -top-1 -right-1 bg-white text-red-600 text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-black border border-red-200">0</span>
+               <span className="absolute -top-1 -right-1 bg-white text-red-600 text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-black border border-red-200 font-mono">0</span>
             </div>
           )}
         </div>
@@ -281,7 +280,7 @@ const App = () => {
         <div className="overflow-auto flex-1">
           <table className="w-full text-left border-collapse min-w-[2200px]">
             <thead className="sticky top-0 z-20 bg-slate-50/90 backdrop-blur-sm border-b border-slate-200">
-              <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest font-sans">
                 <th className="px-5 py-4 text-center w-16 border-r border-slate-100">NO.</th>
                 {config.headers.map(h => (
                   <th key={h} className={`px-5 py-4 border-r border-slate-100 ${h.length > 8 ? 'min-w-[200px]' : 'min-w-[140px]'}`}>{h}</th>
@@ -301,22 +300,26 @@ const App = () => {
                   <td className="px-5 py-2 text-center border-r border-slate-100 text-slate-400 font-mono">
                     {String((currentPage - 1) * pageSize + idx + 1).padStart(2, '0')}
                   </td>
-                  {config.headers.map(h => (
-                    <td key={h} className={`px-5 py-2 border-r border-slate-100 truncate max-w-[350px] text-slate-600 font-medium ${h.includes('数量') || h === '星级' ? 'text-center' : ''}`}>
-                      {h === '评价等级' ? (
-                        <span className="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full text-[10px]">好评</span>
-                      ) : (
-                        row[h]
-                      )}
-                    </td>
-                  ))}
+                  {config.headers.map(h => {
+                    // 判断是否为数字或代码类列，应用 font-mono
+                    const isMono = h.includes('ID') || h.includes('单号') || h.includes('金额') || h.includes('时间') || h.includes('日期') || h.includes('数量') || h.includes('skuid') || h.includes('券码') || h.includes('编号') || h.includes('原价');
+                    return (
+                      <td key={h} className={`px-5 py-2 border-r border-slate-100 truncate max-w-[350px] text-slate-600 font-medium ${h.includes('数量') || h === '星级' ? 'text-center' : ''} ${isMono ? 'font-mono' : 'font-sans'}`}>
+                        {h === '评价等级' ? (
+                          <span className="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full text-[10px] font-sans">好评</span>
+                        ) : (
+                          row[h]
+                        )}
+                      </td>
+                    );
+                  })}
                   <td className={`px-5 py-2 text-center sticky right-0 shadow-[-8px_0_15px_-5px_rgba(0,0,0,0.05)] ${idx % 2 === 1 ? 'bg-[#F0F9FE]' : 'bg-white'} group-hover:bg-indigo-50/30 transition-colors`}>
                     <div className="flex justify-center gap-4">
-                      <button className="text-indigo-600 hover:text-indigo-800 font-bold transition-all hover:underline decoration-2 underline-offset-4">
+                      <button className="text-indigo-600 hover:text-indigo-800 font-bold transition-all hover:underline decoration-2 underline-offset-4 font-sans">
                         {activeTab === '客服管理' ? '绑定系统' : (activeTab.includes('管理') ? '修改' : '详情')}
                       </button>
                       {activeTab !== '评价统计' && activeTab !== '客服管理' && (
-                        <button className="text-rose-500 hover:text-rose-700 font-bold transition-all hover:underline decoration-2 underline-offset-4 flex items-center gap-1">
+                        <button className="text-rose-500 hover:text-rose-700 font-bold transition-all hover:underline decoration-2 underline-offset-4 flex items-center gap-1 font-sans">
                           <Trash2 size={12}/> 删除
                         </button>
                       )}
@@ -333,17 +336,17 @@ const App = () => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-1.5">
               <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center bg-white hover:bg-slate-50 transition-all active:scale-90 text-slate-400"><ChevronLeft size={16}/></button>
-              <button className="w-8 h-8 rounded-lg font-black text-xs bg-indigo-600 text-white shadow-md">1</button>
-              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50">2</button>
-              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50">3</button>
-              <span className="text-slate-300 mx-1">...</span>
-              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50">63</button>
+              <button className="w-8 h-8 rounded-lg font-black text-xs bg-indigo-600 text-white shadow-md font-mono">1</button>
+              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50 font-mono">2</button>
+              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50 font-mono">3</button>
+              <span className="text-slate-300 mx-1 font-mono">...</span>
+              <button className="w-8 h-8 border border-slate-200 rounded-lg text-xs font-bold bg-white text-slate-500 hover:bg-slate-50 font-mono">63</button>
               <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center bg-white hover:bg-slate-50 transition-all active:scale-90 text-slate-400"><ChevronRight size={16}/></button>
             </div>
             <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400">
-              <span>前往</span>
-              <input type="number" defaultValue={1} className="w-10 h-8 border border-slate-200 rounded-lg text-center outline-none bg-white text-slate-600 focus:border-indigo-400" />
-              <span>页</span>
+              <span className="font-sans">前往</span>
+              <input type="number" defaultValue={1} className="w-10 h-8 border border-slate-200 rounded-lg text-center outline-none bg-white text-slate-600 focus:border-indigo-400 font-mono" />
+              <span className="font-sans">页</span>
             </div>
           </div>
         </div>
